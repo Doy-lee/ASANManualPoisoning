@@ -42,12 +42,10 @@ to dig into source code or read the [ASAN paper](https://static.googleuserconten
 
 We use a stack-allocated 16 byte array and test un/poisoning
 various ranges of bytes from different alignments to clarify the
-poisoning behaviour of the API.
-
-This reveals that calling the API haphazardly, unaligned or
-straddling boundaries can lead to gaps in poisoned memory and hide
-potential leaks (as also demonstrated in [Manual ASAN poisoning and
-alignment](https://github.com/mcgov/asan_alignment_example)).
+poisoning behaviour of the API. This reveals that calling the API
+haphazardly, unaligned or straddling boundaries can lead to gaps in
+poisoned memory and hide potential leaks (as also demonstrated in
+[Manual ASAN poisoning and alignment](https://github.com/mcgov/asan_alignment_example)).
 
 ## References
 
@@ -56,11 +54,12 @@ alignment](https://github.com/mcgov/asan_alignment_example)).
 - [sanitizer/asan_interface.h](https://github.com/llvm-mirror/compiler-rt/blob/master/include/sanitizer/asan_interface.h)
 
 ## Raw Test Results
-Here we demonstrate that ASAN poison-ing will only poison the
-byte region if the region meets an 8 byte boundary. It will only
-poison bytes upto the 8 byte boundary, any bytes that straddle
-the boundary that do not hit the next 8 byte boundary are not
-poison-ed.
+
+Here we poison a sliding window of 7 bytes to demonstrate that ASAN
+poisoning will only poison the byte region if the region meets an 8
+byte aligned address. It will only poison bytes up to the boundary,
+any bytes that straddle the boundary that do not hit the next 8 byte
+boundary are not poisoned.
 
 ```
    Byte Array                    00 01 02 03 04 05 06 07 | 08 09 10 11 12 13 14 15
