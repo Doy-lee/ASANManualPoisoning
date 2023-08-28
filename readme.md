@@ -25,8 +25,26 @@ marked-up memory that may lead to undetected read/writes.
 ## Overview
 
 ASAN provides a way to manually markup ranges of bytes to
-prohibit or permit reads to those addresses. There's a short
-foot-note in Google's [AddressSanitizerManualPoisoning](https://github.com/google/sanitizers/wiki/AddressSanitizerManualPoisoning)
+prohibit or permit reads to those addresses. In
+`<sanitizer/asan_interface.h> there's a brief mention for the poison
+and unpoison API respectively:`
+
+```cpp
+/// ... This function is not guaranteed to poison the entire region -
+/// it could poison only a subregion of <c>[addr, addr+size)</c> due to ASan
+/// alignment restrictions.
+void __asan_poison_memory_region(void const volatile *addr, size_t size);
+```
+
+and:
+
+```cpp
+/// This function could unpoison a super-region of <c>[addr, addr+size)</c> due
+/// to ASan alignment restrictions.
+void __asan_unpoison_memory_region(void const volatile *addr, size_t size);
+```
+
+There's another brief foot-note in Google's [AddressSanitizerManualPoisoning](https://github.com/google/sanitizers/wiki/AddressSanitizerManualPoisoning)
 documentation that states:
 
 ```
@@ -36,8 +54,8 @@ of memory leaving poisoned redzones between them. The allocated
 chunks should start with 8-aligned addresses.
 ```
 
-This repository runs some simple tests to clarify the behaviour of
-the API on un/aligned addresses at various sizes without having
+So then this repository runs some simple tests to clarify the behaviour
+of the API on un/aligned addresses at various sizes without having
 to dig into source code or read the [ASAN paper](https://static.googleusercontent.com/media/research.google.com/en/pubs/archive/37752.pdf).
 
 We use a stack-allocated 16 byte array and test un/poisoning
@@ -50,7 +68,7 @@ poisoned memory and hide potential leaks (as also demonstrated in
 ## References
 
 - [Manual ASAN poisoning and alignment](https://github.com/mcgov/asan_alignment_example) example by `mcgov`
-- [Address Sanitizer: A Fast Address Sanity Checker](https://static.googleusercontent.com/media/research.google.com/en/pubs/archive/37752.pdf)
+- [Address Sanitizer: A Fast Address Sanity Checker](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37752.pdf)
 - [sanitizer/asan_interface.h](https://github.com/llvm-mirror/compiler-rt/blob/master/include/sanitizer/asan_interface.h)
 
 ## Raw Test Results
