@@ -47,8 +47,7 @@ poisoning behaviour of the API.
 This reveals that calling the API haphazardly, unaligned or
 straddling boundaries can lead to gaps in poisoned memory and hide
 potential leaks (as also demonstrated in [Manual ASAN poisoning and
-alignment](https://github.com/mcgov/asan_alignment_example) example
-by `mcgov`.
+alignment](https://github.com/mcgov/asan_alignment_example)).
 
 ## References
 
