@@ -114,7 +114,7 @@ int main()
         "## References\n"
         "\n"
         "- [Manual ASAN poisoning and alignment](https://github.com/mcgov/asan_alignment_example) example by `mcgov`\n"
-        "- [Address Sanitizer: A Fast Address Sanity Checker](https://static.googleusercontent.com/media/research.google.com/en/pubs/archive/37752.pdf)\n"
+        "- [Address Sanitizer: A Fast Address Sanity Checker](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37752.pdf)\n"
         "- [sanitizer/asan_interface.h](https://github.com/llvm-mirror/compiler-rt/blob/master/include/sanitizer/asan_interface.h)\n"
         "\n"
         "## Raw Test Results\n"
