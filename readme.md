@@ -26,25 +26,21 @@ marked-up memory that may lead to undetected read/writes.
 
 ASAN provides a way to manually markup ranges of bytes to
 prohibit or permit reads to those addresses. In
-`<sanitizer/asan_interface.h>` there's a brief mention for the poison
-and unpoison API respectively:
+`<sanitizer/asan_interface.h>` there's a vague brief mention to
+alignment requirements for the poison API:
 
 ```cpp
 /// ... This function is not guaranteed to poison the entire region -
 /// it could poison only a subregion of <c>[addr, addr+size)</c> due to ASan
 /// alignment restrictions.
 void __asan_poison_memory_region(void const volatile *addr, size_t size);
-```
 
-and:
-
-```cpp
 /// ... This function could unpoison a super-region of <c>[addr, addr+size)</c> due
 /// to ASan alignment restrictions.
 void __asan_unpoison_memory_region(void const volatile *addr, size_t size);
 ```
 
-There's another brief foot-note in Google's [AddressSanitizerManualPoisoning](https://github.com/google/sanitizers/wiki/AddressSanitizerManualPoisoning)
+There's another small foot-note in Google's [AddressSanitizerManualPoisoning](https://github.com/google/sanitizers/wiki/AddressSanitizerManualPoisoning)
 documentation that states:
 
 ```
