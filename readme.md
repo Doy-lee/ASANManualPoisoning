@@ -26,8 +26,8 @@ marked-up memory that may lead to undetected read/writes.
 
 ASAN provides a way to manually markup ranges of bytes to
 prohibit or permit reads to those addresses. In
-`<sanitizer/asan_interface.h> there's a brief mention for the poison
-and unpoison API respectively:`
+`<sanitizer/asan_interface.h>` there's a brief mention for the poison
+and unpoison API respectively:
 
 ```cpp
 /// ... This function is not guaranteed to poison the entire region -
@@ -39,7 +39,7 @@ void __asan_poison_memory_region(void const volatile *addr, size_t size);
 and:
 
 ```cpp
-/// This function could unpoison a super-region of <c>[addr, addr+size)</c> due
+/// ... This function could unpoison a super-region of <c>[addr, addr+size)</c> due
 /// to ASan alignment restrictions.
 void __asan_unpoison_memory_region(void const volatile *addr, size_t size);
 ```
